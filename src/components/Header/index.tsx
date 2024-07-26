@@ -10,21 +10,16 @@ import {
   Link,
   Button,
 } from "@nextui-org/react"
+import { ROUTES } from "../../constants"
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
 
   const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
+    { text: "Home", to: ROUTES.HOME_URL },
+    { text: "Profile", to: ROUTES.USER_URL("1") },
+    { text: "Following", to: ROUTES.FOLLOWING_URL },
+    { text: "Follower", to: ROUTES.FOLLOWER_URL },
   ]
 
   return (
@@ -39,51 +34,36 @@ const Header: React.FC = () => {
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Features
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="#" aria-current="page">
-            Customers
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Integrations
-          </Link>
-        </NavbarItem>
+      <NavbarContent
+        className="hidden sm:flex gap-4"
+        justify="center"
+        key={"hello"}
+      >
+        {menuItems.map(item => (
+          <NavbarItem key={item.to}>
+            <Link color="foreground" href={item.to}>
+              {item.text}
+            </Link>
+          </NavbarItem>
+        ))}
       </NavbarContent>
+
       <NavbarContent justify="end">
         <NavbarItem className="hidden lg:flex">
           <Link href="#">Login</Link>
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="primary" href="#" variant="flat">
+          <Button as={Link} color="primary" href={ROUTES.REGISTRATION_URL} variant="flat">
             Sign Up
           </Button>
         </NavbarItem>
       </NavbarContent>
 
-
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              color={
-                index === 2
-                  ? "primary"
-                  : index === menuItems.length - 1
-                    ? "danger"
-                    : "foreground"
-              }
-              className="w-full"
-              href="#"
-              size="lg"
-            >
-              {item}
+            <Link color="primary" className="w-full" href={item.to} size="lg">
+              {item.text}
             </Link>
           </NavbarMenuItem>
         ))}

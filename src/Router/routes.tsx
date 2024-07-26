@@ -5,15 +5,72 @@ import {
   UserPage,
   FollowerPage,
   FollowingPage,
+  RegisterPage,
 } from "../pages"
+import ProtectedRoute from "./ProtectedRoute"
+import RootPage from "./RootPage"
 
-export const commonRoutes = [
+export const routes = [
   {
     path: ROUTES.HOME_URL,
-    element: <HomePage />
+    element: <RootPage />,
+    children: [
+      {
+        path: ROUTES.HOME_URL,
+        element: <HomePage />,
+      },
+      {
+        path: ROUTES.REGISTRATION_URL,
+        element: (
+          <ProtectedRoute allowedRoles={["GUEST"]}>
+            <RegisterPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: ROUTES.POST_URL(":id"),
+        element: (
+          <ProtectedRoute
+            allowedRoles={["USER"]}
+            navigateTo={ROUTES.REGISTRATION_URL}
+          >
+            <PostPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: ROUTES.USER_URL(':id'),
+        element: (
+          <ProtectedRoute
+            allowedRoles={["USER"]}
+            navigateTo={ROUTES.REGISTRATION_URL}
+          >
+            <UserPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: ROUTES.FOLLOWER_URL,
+        element: (
+          <ProtectedRoute
+            allowedRoles={["USER"]}
+            navigateTo={ROUTES.REGISTRATION_URL}
+          >
+            <FollowerPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: ROUTES.FOLLOWING_URL,
+        element: (
+          <ProtectedRoute
+            allowedRoles={["USER"]}
+            navigateTo={ROUTES.REGISTRATION_URL}
+          >
+            <FollowingPage />
+          </ProtectedRoute>
+        ),
+      },
+    ],
   },
-  {
-    path: ROUTES.REGISTRATION_URL
-    element: ROUTES.
-  }
 ]

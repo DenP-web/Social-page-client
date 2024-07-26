@@ -2,9 +2,10 @@ import React from "react"
 import { createRoot } from "react-dom/client"
 import { Provider } from "react-redux"
 import { NextUIProvider } from "@nextui-org/react"
-import App from "./App"
+
 import { store } from "./app/store"
 import "./index.css"
+import AppRouter from "./Router"
 
 const container = document.getElementById("root")
 
@@ -15,7 +16,7 @@ if (container) {
     <React.StrictMode>
       <Provider store={store}>
         <NextUIProvider>
-          <App />
+          <AppRouter />
         </NextUIProvider>
       </Provider>
     </React.StrictMode>,
