@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
-import { useLoginMutation } from "../app/services/userApi"
+import { useLazyCurrentUserQuery, useLoginMutation } from "../app/services/userApi"
 import { hasErrorField } from "../utils/hasErrorField"
+import { useNavigate } from "react-router-dom"
+import { ROUTES } from "../constants"
 
 type LoginData = {
   email: string
@@ -10,11 +12,14 @@ type LoginData = {
 const useLogin = () => {
   const [error, setError] = useState<string>("")
   const [login, { isError, isLoading }] = useLoginMutation()
+  const [triggerCurrentUser] = useLazyCurrentUserQuery()
+  const navigate = useNavigate()
 
-  async function fetchData(data: LoginData) {
+  async function fetchLogin(data: LoginData) {
     try {
       await login(data).unwrap()
-      
+      await triggerCurrentUser().unwrap()
+      navigate(ROUTES.HOME_URL)
     } catch (error) {
       if (hasErrorField(error)) {
         setError(error.data.message)
@@ -23,7 +28,7 @@ const useLogin = () => {
   }
 
   return {
-    fetchData,
+    fetchLogin,
     error,
     isLoading,
   }

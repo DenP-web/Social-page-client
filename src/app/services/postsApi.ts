@@ -7,13 +7,13 @@ export const postApi = api.injectEndpoints({
 
     createPost: builder.mutation<Post, { content: string }>({
       query: (postData) => ({
-        url: '/post',
+        url: '/posts',
         method: 'POST',
         body: postData
       }),
     }),
 
-    getAllPosts: builder.query<Post[], void>({
+    getAllPosts: builder.query<{posts: Post[]}, void>({
       query: () => ({
         url: '/posts',
         method: 'GET'

@@ -1,6 +1,13 @@
 import React, { ReactElement } from "react"
 import { Navigate } from "react-router-dom"
 import { ROUTES } from "../constants"
+import {
+  useCurrentUserQuery,
+  useLazyCurrentUserQuery,
+} from "../app/services/userApi"
+import Loader from "../components/ui/Loader"
+import { useSelector } from "react-redux"
+import { selectAuthenticated, selectCurrent } from "../app/selects/userSelects"
 
 type ProtectedRouteProps = {
   children: ReactElement
@@ -11,9 +18,14 @@ type ProtectedRouteProps = {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   children,
   allowedRoles,
-  navigateTo = '/'
+  navigateTo = "/",
 }) => {
-  const { role } = { role: "GUEST" }
+  const currentUser = useSelector(selectCurrent)
+  const role: string =
+    currentUser && "role" in currentUser
+      ? (currentUser.role as string)
+      : "GUEST"
+
   if (!allowedRoles.includes(role)) return <Navigate to={navigateTo} replace />
   return children
 }

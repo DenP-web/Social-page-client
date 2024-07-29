@@ -15,7 +15,7 @@ type LoginProps = {
 }
 
 const Login: React.FC<LoginProps> = ({ changeTab }) => {
-  const { fetchData, isLoading, error } = useLogin()
+  const { fetchLogin, isLoading, error } = useLogin()
   const {
     control,
     handleSubmit,
@@ -29,9 +29,7 @@ const Login: React.FC<LoginProps> = ({ changeTab }) => {
     },
   })
 
-  const onSubmit = (data: Login) => {
-    fetchData(data)
-  }
+  const onSubmit = (data: Login) => fetchLogin(data)
 
   return (
     <form

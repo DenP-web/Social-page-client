@@ -23,7 +23,7 @@ export const userApi = api.injectEndpoints({
     }),
     currentUser: builder.query<User, void>({
       query: () => ({
-        url: '/user',
+        url: '/user/current',
         method: 'GET'
       })
     }),

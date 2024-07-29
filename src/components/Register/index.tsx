@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import Input from "../ui/Input"
 import ErrorMessage from "../ui/ErrorMessage"
 import { Button } from "@nextui-org/react"
+import useRegister from "../../hooks/useRegister"
 
 type Register = {
   email: string
@@ -15,7 +16,7 @@ type RegisterProps = {
 }
 
 const Register: React.FC<RegisterProps> = ({ changeTab }) => {
-  const [error, setError] = useState<string>("")
+  const {fetchRegister, error, isLoading} = useRegister()
   const {
     control,
     handleSubmit,
@@ -31,7 +32,7 @@ const Register: React.FC<RegisterProps> = ({ changeTab }) => {
   })
 
   const onSubmit = (data: Register) => {
-    console.log(data)
+    fetchRegister(data)
   }
 
   return (
@@ -73,7 +74,7 @@ const Register: React.FC<RegisterProps> = ({ changeTab }) => {
         If you have an account, Log In now!
       </button>
 
-      <Button color="primary" type="submit">
+      <Button color="primary" type="submit" isLoading={isLoading}>
         Sign Up
       </Button>
     </form>

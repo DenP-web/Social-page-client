@@ -1,4 +1,6 @@
 import React from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { Link, useNavigate } from "react-router-dom"
 import {
   Navbar,
   NavbarBrand,
@@ -7,13 +9,18 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-  Link,
   Button,
 } from "@nextui-org/react"
 import { ROUTES } from "../../constants"
 
+import { selectAuthenticated } from "../../app/selects/userSelects"
+import { logout } from "../../app/slices/userSlice"
+
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
+  const isAuth = useSelector(selectAuthenticated)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const menuItems = [
     { text: "Home", to: ROUTES.HOME_URL },
@@ -21,6 +28,12 @@ const Header: React.FC = () => {
     { text: "Following", to: ROUTES.FOLLOWING_URL },
     { text: "Follower", to: ROUTES.FOLLOWER_URL },
   ]
+
+  const handleLogOut = async () => {
+    dispatch(logout())
+    localStorage.removeItem("token")
+    navigate(ROUTES.HOME_URL)
+  }
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
@@ -41,28 +54,32 @@ const Header: React.FC = () => {
       >
         {menuItems.map(item => (
           <NavbarItem key={item.to}>
-            <Link color="foreground" href={item.to}>
-              {item.text}
-            </Link>
+            <Link to={item.to}>{item.text}</Link>
           </NavbarItem>
         ))}
       </NavbarContent>
 
       <NavbarContent justify="end">
-        <NavbarItem className="hidden lg:flex">
-          <Link href="#">Login</Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Button as={Link} color="primary" href={ROUTES.REGISTRATION_URL} variant="flat">
-            Sign Up
+        {isAuth ? (
+          <Button onClick={handleLogOut} variant="bordered" color="danger">
+            Log Out
           </Button>
-        </NavbarItem>
+        ) : (
+          <NavbarItem>
+            <Link
+              className="p-2 bg-green-500 text-white rounded-2xl"
+              to={ROUTES.REGISTRATION_URL}
+            >
+              Log In
+            </Link>
+          </NavbarItem>
+        )}
       </NavbarContent>
 
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
-            <Link color="primary" className="w-full" href={item.to} size="lg">
+            <Link className="w-full" to={item.to}>
               {item.text}
             </Link>
           </NavbarMenuItem>
