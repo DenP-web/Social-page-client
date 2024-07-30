@@ -6,7 +6,7 @@ type ErrorMessageProps ={
 
 const ErrorMessage:React.FC<ErrorMessageProps> = ({error}) => {
   return (
-    <p className='text-red-500 mt-10 text-center'>
+    <p className='text-red-500 mt-2 text-center'>
       {error}
     </p>
   )

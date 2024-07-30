@@ -4,6 +4,7 @@ import useLogin from "./useLogin";
 import useRegister from "./useRegister";
 import useLikePost from "./useLikePost";
 import useUnlikePost from "./useUnlikePost";
+import useDeleteComment from "./useDeleteComment";
 
 export {
   useCreatePost,
@@ -11,5 +12,6 @@ export {
   useLogin,
   useRegister,
   useLikePost,
-  useUnlikePost
+  useUnlikePost,
+  useDeleteComment
 }

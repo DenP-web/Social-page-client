@@ -16,11 +16,12 @@ type RegisterProps = {
 }
 
 const Register: React.FC<RegisterProps> = ({ changeTab }) => {
-  const {fetchRegister, error, isLoading} = useRegister()
+  const {fetchRegister, error, isLoading, isSuccess} = useRegister()
   const {
     control,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm<Register>({
     mode: "onChange",
     reValidateMode: "onBlur",
@@ -31,8 +32,8 @@ const Register: React.FC<RegisterProps> = ({ changeTab }) => {
     },
   })
 
-  const onSubmit = (data: Register) => {
-    fetchRegister(data)
+  const onSubmit = async (data: Register) => {
+    await fetchRegister({data, changeTab, reset})
   }
 
   return (

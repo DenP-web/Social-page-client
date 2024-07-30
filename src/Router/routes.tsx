@@ -6,6 +6,7 @@ import {
   FollowerPage,
   FollowingPage,
   RegisterPage,
+  ProfilePage,
 } from "../pages"
 import ProtectedRoute from "./ProtectedRoute"
 import RootPage from "./RootPage"
@@ -46,6 +47,17 @@ export const routes = [
             navigateTo={ROUTES.REGISTRATION_URL}
           >
             <UserPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: ROUTES.USER_URL(),
+        element: (
+          <ProtectedRoute
+            allowedRoles={["USER"]}
+            navigateTo={ROUTES.REGISTRATION_URL}
+          >
+            <ProfilePage />
           </ProtectedRoute>
         ),
       },

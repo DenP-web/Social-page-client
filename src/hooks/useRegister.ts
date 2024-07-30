@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useRegisterMutation } from "../app/services/userApi"
 import { hasErrorField } from "../utils/hasErrorField"
+import { UseFormReset } from "react-hook-form"
 
 
 type RegisterData = {
@@ -9,13 +10,22 @@ type RegisterData = {
   password: string
 }
 
+type fetchRegisterArg ={
+  data: RegisterData,
+  changeTab: () => void,
+  reset: UseFormReset<RegisterData>
+}
+
 
 const useRegister = () => {
   const [error, setError] = useState<string>('')
-  const [register, { isLoading }] = useRegisterMutation()
-  const fetchRegister = async (data: RegisterData) => {
+  const [register, { isLoading, isSuccess }] = useRegisterMutation()
+
+  const fetchRegister = async ({data, changeTab, reset}: fetchRegisterArg) => {
     try {
       await register(data).unwrap()
+      changeTab()
+      reset()
     } catch (error) {
       if (hasErrorField(error)) {
         setError(error.data.message)
@@ -26,7 +36,8 @@ const useRegister = () => {
   return {
     fetchRegister,
     isLoading,
-    error
+    error,
+    isSuccess
   }
 }
 

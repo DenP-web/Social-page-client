@@ -7,7 +7,7 @@ type TextareaProps = {
   label?: string
   requiredMessage: string
   placeholder?: string
-  classNames: string
+  classNames?: string
   control: Control<any>
 }
 

@@ -4,6 +4,7 @@ import UserPage from "./UserPage"
 import FollowerPage from "./FollowerPage"
 import FollowingPage from "./FollowingPage/Index"
 import RegisterPage from "./RegisterPage"
+import ProfilePage from "./ProfilePage"
 
 export {
   HomePage,
@@ -12,4 +13,5 @@ export {
   FollowerPage,
   FollowingPage,
   RegisterPage,
+  ProfilePage
 }

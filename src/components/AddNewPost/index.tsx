@@ -11,6 +11,7 @@ const AddNewPost = () => {
     control,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm({
     mode: "onChange",
     reValidateMode: "onBlur",
@@ -20,7 +21,7 @@ const AddNewPost = () => {
   })
 
   const onSubmit = (data: { content: string }) => {
-    createPost(data)
+    createPost(data, reset)
   }
 
   return (

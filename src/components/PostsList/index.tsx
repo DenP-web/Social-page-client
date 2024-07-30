@@ -9,7 +9,7 @@ const PostsList = () => {
   }
 
   return (
-    <ul className=" flex flex-col items-center gap-4 w-full py-2">
+    <ul className="flex flex-col items-center gap-4 w-full p-2">
       {data.posts.length === 0 && <p>Sorry, no posts yet</p>}
       {data.posts.map(post => (
         <li key={post.id} className="max-w-[560px] w-full">

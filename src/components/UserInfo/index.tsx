@@ -1,46 +1,67 @@
 import React from "react"
-import { Link, useNavigate } from "react-router-dom"
-import { useSelector } from "react-redux"
-import { selectCurrent } from "../../app/selects/userSelects"
+import { Link } from "react-router-dom"
 import { Button, Image } from "@nextui-org/react"
 import { BASE_URL, ROUTES } from "../../constants"
+import { User } from "../../app/types"
 
-const UserInfo: React.FC = () => {
-  const user = useSelector(selectCurrent)
-  const navigate = useNavigate()
+type UserInfoProps = {
+  data: User | undefined
+  updateBtn: boolean
+}
 
-  if (!user) {
-    navigate(ROUTES.REGISTRATION_URL)
+const UserInfo: React.FC<UserInfoProps> = ({ data, updateBtn }) => {
+  if (!data) {
     return null
   }
 
   return (
     <section>
       <div className=" flex gap-10 p-10 border-2">
-        <div className=" w-[400px] flex flex-col items-center gap-2">
-          <p>{user.name}</p>
+        <div className="max-w-[300px] w-full flex flex-col items-center gap-2">
+          <p>{data.name}</p>
 
-          <Image src={BASE_URL + user.avatarUrl} />
-
-          <Button className="w-6" color="primary">
-            {user.isFollowing ? "Unfollow" : "Follow"}
-          </Button>
+          <Image src={BASE_URL + data.avatarUrl} />
+          {updateBtn ? (
+            <Button className="w-6" color="primary">
+              Update
+            </Button>
+          ) : (
+            <Button className="w-6" color="primary">
+              {data.isFollowing ? "Unfollow" : "Follow"}
+            </Button>
+          )}
         </div>
 
-        <div className="w-full flex justify-center">
-          <div>
+        <div className="w-full flex flex-col items-center gap-10">
+          <div className="flex justify-between w-full max-w-[300px]">
             <Link to={ROUTES.FOLLOWER_URL}>
-              Followers: <span>{user.followers.length}</span>
+              Followers: <span>{data.followers.length}</span>
             </Link>
 
             <Link to={ROUTES.FOLLOWING_URL}>
-              Followings: <span>{user.following.length}</span>
+              Followings: <span>{data.following.length}</span>
             </Link>
           </div>
-          <div>
-            <p>{user.bio}</p>
-            <p>{user.location}</p>
-          </div>
+          <ul className="text-start">
+            {data.bio && (
+              <li className="flex justify-between">
+                <span className="font-bold">About me</span>
+                <p className="font-normal">{data.bio}</p>
+              </li>
+            )}
+            {data.location && (
+              <li className="flex justify-between">
+                <span className="font-bold">Location</span>
+                <p className="font-normal">{data.location}</p>
+              </li>
+            )}
+            {data.dateOfBirth && (
+              <li className="flex justify-between">
+                <span className="font-bold">My date of birth</span>
+                <p className="font-normal">{data.dateOfBirth}</p>
+              </li>
+            )}
+          </ul>
         </div>
       </div>
     </section>
