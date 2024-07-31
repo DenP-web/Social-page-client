@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { Button, Image } from "@nextui-org/react"
 import { BASE_URL, ROUTES } from "../../constants"
 import { User } from "../../app/types"
+import useFollowFeatures from "../../hooks/useFollowFeatures"
 
 type UserInfoProps = {
   data: User | undefined
@@ -10,8 +11,18 @@ type UserInfoProps = {
 }
 
 const UserInfo: React.FC<UserInfoProps> = ({ data, updateBtn }) => {
+  const { follow, unfollow, isLoading, error } = useFollowFeatures()
+
   if (!data) {
     return null
+  }
+
+  const followsFeaturesHandle = () => {
+    if (data.isFollowing) {
+      unfollow(data.id)
+    } else {
+      follow(data.id)
+    }
   }
 
   return (
@@ -26,7 +37,12 @@ const UserInfo: React.FC<UserInfoProps> = ({ data, updateBtn }) => {
               Update
             </Button>
           ) : (
-            <Button className="w-6" color="primary">
+            <Button
+              className="w-6"
+              color="primary"
+              onClick={followsFeaturesHandle}
+              isLoading={isLoading}
+            >
               {data.isFollowing ? "Unfollow" : "Follow"}
             </Button>
           )}
@@ -34,11 +50,11 @@ const UserInfo: React.FC<UserInfoProps> = ({ data, updateBtn }) => {
 
         <div className="w-full flex flex-col items-center gap-10">
           <div className="flex justify-between w-full max-w-[300px]">
-            <Link to={ROUTES.FOLLOWER_URL}>
+            <Link to={ROUTES.FOLLOWER_URL(data.id)}>
               Followers: <span>{data.followers.length}</span>
             </Link>
 
-            <Link to={ROUTES.FOLLOWING_URL}>
+            <Link to={ROUTES.FOLLOWING_URL(data.id)}>
               Followings: <span>{data.following.length}</span>
             </Link>
           </div>

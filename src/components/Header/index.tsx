@@ -27,12 +27,12 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false)
   const [triggerGetAllPosts] = useLazyGetAllPostsQuery()
   const isAuth = useSelector(selectAuthenticated)
-  
+  const currentUserId = (useSelector(selectCurrent))?.id || ''
   const menuItems = [
     { text: "Home", to: ROUTES.HOME_URL },
-    { text: "Profile", to: ROUTES.USER_URL() },
-    { text: "Following", to: ROUTES.FOLLOWING_URL },
-    { text: "Follower", to: ROUTES.FOLLOWER_URL },
+    { text: "Profile", to: ROUTES.PROFILE_URL },
+    { text: "Following", to: ROUTES.FOLLOWING_URL(currentUserId) },
+    { text: "Follower", to: ROUTES.FOLLOWER_URL(currentUserId) },
   ]
 
   const handleLogOut = async () => {

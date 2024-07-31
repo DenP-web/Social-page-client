@@ -5,7 +5,7 @@ import { api } from "./api";
 export const followApi = api.injectEndpoints({
   endpoints: (builder) => ({
     follow: builder.mutation<Follow, { followingId: string }>({
-      query: ({ followingId }) => ({
+      query: (followingId) => ({
         url: '/follows',
         method: 'POST',
         body: followingId

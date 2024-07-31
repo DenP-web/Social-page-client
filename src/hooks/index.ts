@@ -5,6 +5,7 @@ import useRegister from "./useRegister";
 import useLikePost from "./useLikePost";
 import useUnlikePost from "./useUnlikePost";
 import useDeleteComment from "./useDeleteComment";
+import useFollowFeatures from "./useFollowFeatures";
 
 export {
   useCreatePost,
@@ -13,5 +14,6 @@ export {
   useRegister,
   useLikePost,
   useUnlikePost,
-  useDeleteComment
+  useDeleteComment,
+  useFollowFeatures
 }

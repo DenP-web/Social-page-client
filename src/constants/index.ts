@@ -4,7 +4,8 @@ export const ROUTES = {
   HOME_URL: '/',
   REGISTRATION_URL: '/register',
   POST_URL: (id: string) => `/post/${id}`,
-  USER_URL: (id?: string) => `/user${id ? '/'+id : ""}`,
-  FOLLOWER_URL: '/follower',
-  FOLLOWING_URL: '/following'
+  USER_URL: (id: string) => `/user/${id}`,
+  PROFILE_URL: '/user',
+  FOLLOWER_URL: (id: string) => `/follower/${id}`,
+  FOLLOWING_URL: (id: string) => `/following/${id}`
 }

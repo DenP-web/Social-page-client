@@ -40,7 +40,7 @@ export const routes = [
         ),
       },
       {
-        path: ROUTES.USER_URL(':id'),
+        path: ROUTES.USER_URL(":id"),
         element: (
           <ProtectedRoute
             allowedRoles={["USER"]}
@@ -51,7 +51,7 @@ export const routes = [
         ),
       },
       {
-        path: ROUTES.USER_URL(),
+        path: ROUTES.PROFILE_URL,
         element: (
           <ProtectedRoute
             allowedRoles={["USER"]}
@@ -62,7 +62,7 @@ export const routes = [
         ),
       },
       {
-        path: ROUTES.FOLLOWER_URL,
+        path: ROUTES.FOLLOWER_URL(':id'),
         element: (
           <ProtectedRoute
             allowedRoles={["USER"]}
@@ -73,7 +73,7 @@ export const routes = [
         ),
       },
       {
-        path: ROUTES.FOLLOWING_URL,
+        path: ROUTES.FOLLOWING_URL(':id'),
         element: (
           <ProtectedRoute
             allowedRoles={["USER"]}

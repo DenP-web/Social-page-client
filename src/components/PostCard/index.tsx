@@ -35,6 +35,10 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const currentUser = useSelector(selectCurrent)
   const isAuth = useSelector(selectAuthenticated)
   const canDelete = post.authorId === currentUser?.id
+  const userRoute =
+    currentUser?.id === post.author.id
+      ? ROUTES.PROFILE_URL
+      : ROUTES.USER_URL(post.author.id)
 
   const { fetchDeletePost, error: deletePostError } = useDeletePost()
   const { fetchLikePost, error: likePostError } = useLikePost()
@@ -68,9 +72,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           <div className="flex flex-col gap-1 items-start justify-center">
             <Link
               className="text-small font-semibold leading-none text-default-600"
-              to={ROUTES.USER_URL(
-                currentUser?.id === post.author.id ? undefined : post.author.id,
-              )}
+              to={userRoute}
             >
               {post.author.name}
             </Link>

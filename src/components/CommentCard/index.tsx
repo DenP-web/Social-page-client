@@ -1,12 +1,18 @@
 import React from "react"
-import { Comment as TComment } from "../../app/types"
-import { Avatar, Card, CardBody, CardHeader, Divider } from "@nextui-org/react"
-import { BASE_URL, ROUTES } from "../../constants"
-import DeleteBtn from "../ui/DeleteBtn"
 import { Link, useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
-import { selectCurrent } from "../../app/selects/userSelects"
+
 import { useDeleteComment } from "../../hooks"
+
+import { Avatar, Card, CardBody, CardHeader, Divider } from "@nextui-org/react"
+import DeleteBtn from "../ui/DeleteBtn"
+
+import { selectCurrent } from "../../app/selects/userSelects"
+
+import { Comment as TComment } from "../../app/types"
+import { BASE_URL, ROUTES } from "../../constants"
+
+
 
 type CommentCardProps = {
   comment: TComment
@@ -16,7 +22,10 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment }) => {
   const { id: postId } = useParams()
   const currentUser = useSelector(selectCurrent)
   const { fetchDeleteComment, error, isLoading } = useDeleteComment()
-
+  const userRoute =
+    currentUser?.id === comment.userId
+      ? ROUTES.PROFILE_URL
+      : ROUTES.USER_URL(comment.userId)
   const deleteComment = (commentId: string) => {
     fetchDeleteComment(commentId, postId)
   }
@@ -24,12 +33,7 @@ const CommentCard: React.FC<CommentCardProps> = ({ comment }) => {
   return (
     <Card className="max-w-[400px]">
       <CardHeader>
-        <Link
-          to={ROUTES.USER_URL(
-            currentUser?.id === comment.userId ? undefined : comment.userId,
-          )}
-          className="flex gap-3 items-center"
-        >
+        <Link to={userRoute} className="flex gap-3 items-center">
           <Avatar
             alt="nextui logo"
             radius="sm"
