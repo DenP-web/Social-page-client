@@ -6,6 +6,8 @@ import useLikePost from "./useLikePost";
 import useUnlikePost from "./useUnlikePost";
 import useDeleteComment from "./useDeleteComment";
 import useFollowFeatures from "./useFollowFeatures";
+import useSendMessage from "./useSendMessage";
+import useSocket from "./useSocket";
 
 export {
   useCreatePost,
@@ -15,5 +17,7 @@ export {
   useLikePost,
   useUnlikePost,
   useDeleteComment,
-  useFollowFeatures
+  useFollowFeatures,
+  useSendMessage,
+  useSocket
 }

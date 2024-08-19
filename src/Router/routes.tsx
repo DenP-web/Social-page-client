@@ -8,6 +8,7 @@ import {
   RegisterPage,
   ProfilePage,
 } from "../pages"
+import ConversationsPage from "../pages/ConversationsPage"
 import ProtectedRoute from "./ProtectedRoute"
 import RootPage from "./RootPage"
 
@@ -83,6 +84,18 @@ export const routes = [
           </ProtectedRoute>
         ),
       },
+      {
+        path: ROUTES.CONVERSATIONS_URL,
+        element: (
+          <ProtectedRoute
+            allowedRoles={["USER"]}
+            navigateTo={ROUTES.REGISTRATION_URL}
+          >
+            <ConversationsPage />
+          </ProtectedRoute>
+        ),
+      },
+
     ],
   },
 ]

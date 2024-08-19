@@ -6,8 +6,8 @@ type InputProps = {
   placeholder?: string
   type?: string
   name: string
-  label: string
-  control: Control<any>
+  label?: string
+  control?: Control<any>
   required?: string
   className?: string
 }
@@ -32,7 +32,7 @@ const Input: React.FC<InputProps> = ({
   control,
   label,
   placeholder,
-  required = "",
+  required = "This field can't be empty",
   type,
   className,
 }) => {

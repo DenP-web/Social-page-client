@@ -1,16 +1,20 @@
 import React from "react"
 import { Link } from "react-router-dom"
-import { Button, Image } from "@nextui-org/react"
+import { Button, Chip, Divider, Image } from "@nextui-org/react"
 import { BASE_URL, ROUTES } from "../../constants"
 import { User } from "../../app/types"
 import useFollowFeatures from "../../hooks/useFollowFeatures"
+import { useSelector } from "react-redux"
+import { selectCurrent } from "../../app/selects/userSelects"
+import LinkToMessages from "../LinkToMessages"
 
 type UserInfoProps = {
   data: User | undefined
   updateBtn: boolean
+  onOpen?: () => void
 }
 
-const UserInfo: React.FC<UserInfoProps> = ({ data, updateBtn }) => {
+const UserInfo: React.FC<UserInfoProps> = ({ data, updateBtn, onOpen }) => {
   const { follow, unfollow, isLoading, error } = useFollowFeatures()
 
   if (!data) {
@@ -27,24 +31,29 @@ const UserInfo: React.FC<UserInfoProps> = ({ data, updateBtn }) => {
 
   return (
     <section>
-      <div className=" flex gap-10 p-10 border-2">
+      <div className=" flex items-center gap-10 p-10 border-2">
         <div className="max-w-[300px] w-full flex flex-col items-center gap-2">
-          <p>{data.name}</p>
+          <h1 className="text-primary-500 font-mono font-semibold text-2xl mb-4">
+            {data.name}
+          </h1>
 
           <Image src={BASE_URL + data.avatarUrl} />
           {updateBtn ? (
-            <Button className="w-6" color="primary">
+            <Button className="w-6" color="primary" onClick={onOpen}>
               Update
             </Button>
           ) : (
-            <Button
-              className="w-6"
-              color="primary"
-              onClick={followsFeaturesHandle}
-              isLoading={isLoading}
-            >
-              {data.isFollowing ? "Unfollow" : "Follow"}
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                className="w-6"
+                color="primary"
+                onClick={followsFeaturesHandle}
+                isLoading={isLoading}
+              >
+                {data.isFollowing ? "Unfollow" : "Follow"}
+              </Button>
+              <LinkToMessages />
+            </div>
           )}
         </div>
 
@@ -58,26 +67,38 @@ const UserInfo: React.FC<UserInfoProps> = ({ data, updateBtn }) => {
               Followings: <span>{data.following.length}</span>
             </Link>
           </div>
-          <ul className="text-start">
-            {data.bio && (
-              <li className="flex justify-between">
-                <span className="font-bold">About me</span>
-                <p className="font-normal">{data.bio}</p>
-              </li>
-            )}
+
+          <ul className="text-start w-full max-w-[250px]">
             {data.location && (
-              <li className="flex justify-between">
-                <span className="font-bold">Location</span>
-                <p className="font-normal">{data.location}</p>
+              <li className="flex justify-between p-2 items-center">
+                <span className="text-slate-950 font-bold">Location:</span>
+                <Chip color="primary">
+                  <p className="font-normal">{data.location}</p>
+                </Chip>
               </li>
             )}
+            <Divider />
             {data.dateOfBirth && (
-              <li className="flex justify-between">
-                <span className="font-bold">My date of birth</span>
-                <p className="font-normal">{data.dateOfBirth}</p>
+              <li className="flex justify-between p-2">
+                <span className="font-bold">Date of birth:</span>
+                <Chip color="primary">
+                  <p className="font-normal">
+                    {new Date(data.dateOfBirth).toLocaleDateString()}
+                  </p>
+                </Chip>
               </li>
             )}
           </ul>
+
+          {data.bio && (
+            <>
+              <div className="p-2 border-2 rounded-md max-w-[400px] w-full">
+                <h5>Bio:</h5>
+                <Divider className="mb-2" />
+                <p>{data.bio}</p>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </section>

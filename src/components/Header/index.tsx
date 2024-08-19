@@ -1,6 +1,6 @@
-import React from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { Link, useNavigate } from "react-router-dom"
+import React, { useState } from "react"
+import { useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 import {
   Navbar,
   NavbarBrand,
@@ -9,38 +9,25 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-  Button,
+  Avatar,
 } from "@nextui-org/react"
-import { ROUTES } from "../../constants"
+import { BASE_URL, ROUTES } from "../../constants"
 
-import {
-  selectAuthenticated,
-  selectCurrent,
-} from "../../app/selects/userSelects"
-import { logout } from "../../app/slices/userSlice"
-import TypeLogBtn from "../TypeLogBtn"
-import { useLazyGetAllPostsQuery } from "../../app/services/postsApi"
+import { selectCurrent } from "../../app/selects/userSelects"
+import LogBtn from "../LogBtn"
 
 const Header: React.FC = () => {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false)
-  const [triggerGetAllPosts] = useLazyGetAllPostsQuery()
-  const isAuth = useSelector(selectAuthenticated)
-  const currentUserId = (useSelector(selectCurrent))?.id || ''
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false)
+  const currentUser = useSelector(selectCurrent)
+  const currentUserId = currentUser?.id || "1"
+
   const menuItems = [
     { text: "Home", to: ROUTES.HOME_URL },
-    { text: "Profile", to: ROUTES.PROFILE_URL },
+    { text: "Messages", to: ROUTES.CONVERSATIONS_URL },
     { text: "Following", to: ROUTES.FOLLOWING_URL(currentUserId) },
     { text: "Follower", to: ROUTES.FOLLOWER_URL(currentUserId) },
   ]
-
-  const handleLogOut = async () => {
-    dispatch(logout())
-    localStorage.removeItem("token")
-    navigate(ROUTES.HOME_URL)
-    triggerGetAllPosts()
-  }
+  
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen}>
@@ -68,8 +55,12 @@ const Header: React.FC = () => {
         ))}
       </NavbarContent>
 
-      <NavbarContent justify="end">
-        <TypeLogBtn isAuth={isAuth} handleLogOut={handleLogOut} />
+      <NavbarContent justify="end" className="flex gap-4 items-center">
+        <Link to={ROUTES.PROFILE_URL} className="flex gap-4 items-center">
+          <Avatar isBordered src={BASE_URL + currentUser?.avatarUrl} />
+          <p className="text-black-500" data-testid='username'>{currentUser?.name }</p>
+        </Link>
+        <LogBtn />
       </NavbarContent>
 
       <NavbarMenu>

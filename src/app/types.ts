@@ -1,7 +1,9 @@
+
+
 export type User = {
   id: string
   email: string
-  password: string
+  password?: string
   name?: string
   avatarUrl?: string
   dateOfBirth?: string
@@ -15,6 +17,7 @@ export type User = {
   likes: Like[]
   comments: Comment[]
   isFollowing?: boolean
+  conversationIDs?: string[]
 }
 
 export type Follow = {
@@ -52,4 +55,32 @@ export type Comment = {
   userId: string
   post: Post
   postId: string
+}
+
+export type TDataUpdateUser = {
+  name: string | undefined
+  bio: string | undefined
+  location: string | undefined
+  dateOfBirth: string | undefined
+}
+
+
+export type TMessage = {
+  id: string,
+  senderId: string
+  receiverId: string
+  sender: User
+  receiver: User
+  message: string,
+  createdAt: string,
+  updatedAt: string,
+  conversationId: string
+}
+
+export type TConversation = {
+  "id": string
+  "createdAt": string
+  "updatedAt": string
+  "participantsIDs": string[]
+  "participants": User[]
 }

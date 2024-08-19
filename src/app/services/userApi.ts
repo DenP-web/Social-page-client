@@ -5,7 +5,7 @@ import { api } from "./api";
 export const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.mutation<
-      { token: string },
+      User,
       { email: string, password: string }
     >({
       query: (userData) => ({
@@ -39,9 +39,16 @@ export const userApi = api.injectEndpoints({
         method: 'PUT',
         body: userData
       })
+    }),
+
+    logout: builder.mutation<{ message: string }, void>({
+      query: () => ({
+        url: `/user/logout`,
+        method: 'POST',
+      })
     })
   }),
 })
 
-export const { useCurrentUserQuery, useRegisterMutation, useGetUserByIdQuery, useLoginMutation, useUpdateUserMutation, useLazyCurrentUserQuery, useLazyGetUserByIdQuery } = userApi 
-export const {endpoints: {login, register, currentUser, getUserById, updateUser}} = userApi
+export const { useCurrentUserQuery, useRegisterMutation, useGetUserByIdQuery, useLoginMutation, useUpdateUserMutation, useLazyCurrentUserQuery, useLazyGetUserByIdQuery, useLogoutMutation } = userApi
+export const { endpoints: { login, register, currentUser, getUserById, updateUser } } = userApi

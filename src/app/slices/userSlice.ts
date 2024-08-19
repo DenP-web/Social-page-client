@@ -1,19 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { User } from "../types";
+import { TConversation, User } from "../types";
 import { userApi } from "../services/userApi";
+import { messagesApi } from "../services/messagesApi";
 
 interface IInitialState {
   user: User | null,
   isAuthenticated: boolean,
   current: User | null,
-  token: string | null
+  currentConversation: TConversation | null
 }
 
 const initialState: IInitialState = {
-  token: null,
   user: null,
   isAuthenticated: false,
-  current: null
+  current: null,
+  currentConversation: null
 }
 
 const userSlice = createSlice({
@@ -21,19 +22,26 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      state.token = null;
       state.user = null;
       state.isAuthenticated = false;
       state.current = null;
+      state.currentConversation = null
     },
     resetUser: (state) => {
       state.user = null
+    },
+    setCurrentConversation: (state, {payload}: {payload: TConversation | null}) => {
+      state.currentConversation = payload
     }
   },
   extraReducers: (builder) => {
     builder
       .addMatcher(userApi.endpoints.login.matchFulfilled, (state, action) => {
-        state.token = action.payload.token
+        state.current = action.payload
+        state.isAuthenticated = true
+      })
+      .addMatcher(userApi.endpoints.register.matchFulfilled, (state, action) => {
+        state.current = action.payload
         state.isAuthenticated = true
       })
       .addMatcher(userApi.endpoints.currentUser.matchFulfilled, (state, action) => {
@@ -47,6 +55,6 @@ const userSlice = createSlice({
   },
 })
 
-export const {logout, resetUser} = userSlice.actions
+export const {logout, resetUser, setCurrentConversation} = userSlice.actions
 export default userSlice.reducer
 

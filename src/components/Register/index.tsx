@@ -5,7 +5,7 @@ import ErrorMessage from "../ui/ErrorMessage"
 import { Button } from "@nextui-org/react"
 import useRegister from "../../hooks/useRegister"
 
-type Register = {
+type RegisterFormData = {
   email: string
   password: string
   name: string
@@ -16,13 +16,8 @@ type RegisterProps = {
 }
 
 const Register: React.FC<RegisterProps> = ({ changeTab }) => {
-  const {fetchRegister, error, isLoading, isSuccess} = useRegister()
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    reset
-  } = useForm<Register>({
+  const { fetchRegister, error, isLoading } = useRegister()
+  const { control, handleSubmit } = useForm<RegisterFormData>({
     mode: "onChange",
     reValidateMode: "onBlur",
     defaultValues: {
@@ -32,9 +27,11 @@ const Register: React.FC<RegisterProps> = ({ changeTab }) => {
     },
   })
 
-  const onSubmit = async (data: Register) => {
-    await fetchRegister({data, changeTab, reset})
+  const onSubmit = (data: RegisterFormData) => {
+    fetchRegister({ data })
   }
+
+  
 
   return (
     <form

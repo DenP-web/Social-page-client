@@ -2,14 +2,24 @@ import type { Action, ThunkAction } from "@reduxjs/toolkit"
 import { configureStore } from "@reduxjs/toolkit"
 import userSlice from "./slices/userSlice"
 import { api } from "./services/api"
-import { listenerMiddleware } from "./middleware/auth"
+import socketReducer from './slices/socketSlice';
+import notificationSlice from "./slices/notificationSlice"
 
 export const store = configureStore({
   reducer: {
     [api.reducerPath]: api.reducer,
-    user: userSlice
+    socket: socketReducer,
+    user: userSlice,
+    notification: notificationSlice
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(api.middleware).prepend(listenerMiddleware.middleware)
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: {
+      // Ignore actions related to the socket connection
+      ignoredActions: ['socket/setSocket'],
+      // Optionally ignore paths within stateF
+      ignoredPaths: ['socket.socket'],
+    },
+  }).concat(api.middleware)
 })
 
 export type RootState = ReturnType<typeof store.getState>

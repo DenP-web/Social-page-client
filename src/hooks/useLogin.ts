@@ -12,13 +12,11 @@ type LoginData = {
 const useLogin = () => {
   const [error, setError] = useState<string>("")
   const [login, { isError, isLoading }] = useLoginMutation()
-  const [triggerCurrentUser] = useLazyCurrentUserQuery()
   const navigate = useNavigate()
 
   async function fetchLogin(data: LoginData) {
     try {
       await login(data).unwrap()
-      await triggerCurrentUser().unwrap()
       navigate(ROUTES.HOME_URL)
     } catch (error) {
       if (hasErrorField(error)) {
