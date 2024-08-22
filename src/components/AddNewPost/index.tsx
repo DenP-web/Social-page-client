@@ -1,18 +1,13 @@
-import React from "react"
 import { Button } from "@nextui-org/react"
 import { useForm } from "react-hook-form"
-import useCreatePost from "../../hooks/useCreataPost"
+import useCreatePost from "../../hooks/useCreatePost"
 import ErrorMessage from "../ui/ErrorMessage"
 import Textarea from "../ui/TextArea"
+import { useEffect } from "react"
 
 const AddNewPost = () => {
   const { createPost, error, isLoading } = useCreatePost()
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-    reset
-  } = useForm({
+  const { control, handleSubmit, reset } = useForm({
     mode: "onChange",
     reValidateMode: "onBlur",
     defaultValues: {
@@ -21,8 +16,13 @@ const AddNewPost = () => {
   })
 
   const onSubmit = (data: { content: string }) => {
-    createPost(data, reset)
+    createPost(data)
   }
+
+  useEffect(() => {
+    if (error) return
+    reset()
+  }, [error, reset, isLoading])
 
   return (
     <form

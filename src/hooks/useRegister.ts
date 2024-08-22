@@ -1,27 +1,22 @@
 import { useState } from "react"
 import { useRegisterMutation } from "../app/services/userApi"
 import { hasErrorField } from "../utils/hasErrorField"
-import { UseFormReset } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 
 
-type RegisterData = {
+interface RegisterData {
   name: string,
   email: string
   password: string
-}
-
-type fetchRegisterArg ={
-  data: RegisterData,
 }
 
 
 const useRegister = () => {
   const navigate = useNavigate()
   const [error, setError] = useState<string>('')
-  const [register, { isLoading, isSuccess }] = useRegisterMutation()
+  const [register, { isLoading }] = useRegisterMutation()
 
-  const fetchRegister = async ({data}: fetchRegisterArg) => {
+  const fetchRegister = async (data: RegisterData) => {
     try {
       await register(data).unwrap()
       navigate('/')
@@ -36,7 +31,6 @@ const useRegister = () => {
     fetchRegister,
     isLoading,
     error,
-    isSuccess
   }
 }
 

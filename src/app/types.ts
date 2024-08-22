@@ -84,3 +84,4 @@ export type TConversation = {
   "participantsIDs": string[]
   "participants": User[]
 }
+

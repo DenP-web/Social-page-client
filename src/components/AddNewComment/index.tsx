@@ -1,5 +1,5 @@
 import { Button } from "@nextui-org/react"
-import React from "react"
+import React, { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import Textarea from "../ui/TextArea"
 import useCreateComment from "../../hooks/useCreateComment"
@@ -15,7 +15,7 @@ const AddNewComment: React.FC<AddNewCommentProps> = ({ postId }) => {
     control,
     handleSubmit,
     formState: { errors },
-    reset
+    reset,
   } = useForm({
     mode: "onChange",
     reValidateMode: "onBlur",
@@ -25,8 +25,13 @@ const AddNewComment: React.FC<AddNewCommentProps> = ({ postId }) => {
   })
 
   const onSubmit = (data: { content: string }) => {
-    fetchCreateComment({ content: data.content, postId }, reset)
+    fetchCreateComment({ content: data.content, postId })
   }
+
+  useEffect(() => {
+    if (error) return
+    reset()
+  }, [error, reset, isLoading])
 
   return (
     <form className="w-full max-w-[600px]" onSubmit={handleSubmit(onSubmit)}>

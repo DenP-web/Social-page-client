@@ -3,6 +3,7 @@ import { useLikeMutation } from "../app/services/likesApi"
 import { useLazyGetAllPostsQuery, useLazyGetPostByIdQuery } from "../app/services/postsApi"
 import { hasErrorField } from "../utils/hasErrorField"
 
+type nameOfTriggerFnType = 'getPostById' | 'getAllPost'
 
 const useLikePost = () => {
   const [error, setError] = useState<string>('')
@@ -10,10 +11,10 @@ const useLikePost = () => {
   const [triggerGetPostById] = useLazyGetPostByIdQuery()
   const [like] = useLikeMutation()
 
-  const fetchLikePost = async (postId: string, nameOfTriggerFn: string) => {
+  const fetchLikePost = async (postId: string, nameOfTriggerFn: nameOfTriggerFnType) => {
     try {
       await like({ postId }).unwrap()
-      await (nameOfTriggerFn === 'getById' ? triggerGetPostById({ id: postId }) : triggerAllPosts()).unwrap()
+      await (nameOfTriggerFn === 'getPostById' ? triggerGetPostById({ id: postId }) : triggerAllPosts()).unwrap()
     } catch (error) {
       if (hasErrorField(error)) {
         setError(error.data.message)

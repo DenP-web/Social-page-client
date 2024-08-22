@@ -3,7 +3,7 @@ import { TConversation, User } from "../types";
 import { userApi } from "../services/userApi";
 import { messagesApi } from "../services/messagesApi";
 
-interface IInitialState {
+export interface IInitialState {
   user: User | null,
   isAuthenticated: boolean,
   current: User | null,

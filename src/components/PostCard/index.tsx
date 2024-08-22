@@ -3,7 +3,6 @@ import { useSelector } from "react-redux"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import {
   Avatar,
-  Button,
   Card,
   CardBody,
   CardFooter,
@@ -29,9 +28,12 @@ type PostCardProps = {
   post: Post
 }
 
+type typeTriggerData = 'getPostById' | 'getAllPost'
+
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const navigate = useNavigate()
-  const { id: postId } = useParams()
+  const params = useParams()
+
   const currentUser = useSelector(selectCurrent)
   const isAuth = useSelector(selectAuthenticated)
   const canDelete = post.authorId === currentUser?.id
@@ -40,9 +42,9 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       ? ROUTES.PROFILE_URL
       : ROUTES.USER_URL(post.author.id)
 
-  const { fetchDeletePost, error: deletePostError } = useDeletePost()
-  const { fetchLikePost, error: likePostError } = useLikePost()
-  const { fetchUnlikePost, error: unlikePostError } = useUnlikePost()
+  const { fetchDeletePost} = useDeletePost()
+  const { fetchLikePost} = useLikePost()
+  const { fetchUnlikePost} = useUnlikePost()
 
   const deletePostHandle = (id: string) => {
     fetchDeletePost(id)
@@ -53,7 +55,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       navigate(ROUTES.REGISTRATION_URL)
       return null
     }
-    const typeTriggerData: string = postId ? "getById" : "getAllPost"
+    const typeTriggerData: typeTriggerData = params.id ? "getPostById" : "getAllPost"
     post.likedByUser
       ? fetchUnlikePost(id, typeTriggerData)
       : fetchLikePost(id, typeTriggerData)
@@ -85,19 +87,20 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
         <p>{post.content}</p>
       </CardBody>
       <CardFooter className="flex gap-4">
-        <div
-          className="flex gap-1 cursor-pointer"
+        <button
+          className="flex gap-1 cursor-pointer items-center"
           onClick={() => likeFeaturesHandle(post.id)}
+          data-testid='likeBtn'
         >
           <img
             className="max-w-[16px] w-full"
             src={post.likedByUser ? likeRedSvg : likeBlackSvg}
             alt="Like comment"
           />
-          <button className=" font-semibold text-default-400 text-small">
+          <span className=" font-semibold text-default-400 text-small">
             {post.likes.length}
-          </button>
-        </div>
+          </span>
+        </button>
         <Link
           to={ROUTES.POST_URL(post.id)}
           className="flex gap-1 cursor-pointer"

@@ -9,11 +9,10 @@ const useCreateComment = () => {
   const [triggerGetPostById] = useLazyGetPostByIdQuery()
   const [createComment, { isLoading }] = useCreateCommentMutation()
 
-  const fetchCreateComment = async (commentData: { postId: string, content: string }, reset: UseFormReset<{ content: string }>) => {
+  const fetchCreateComment = async (commentData: { postId: string, content: string }) => {
     try {
       await createComment(commentData).unwrap()
       await triggerGetPostById({ id: commentData.postId })
-      reset()
     } catch (error) {
       if (hasErrorField(error)) {
         setError(error.data.message)

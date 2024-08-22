@@ -32,6 +32,7 @@ const renderHeaderWithState = (state: any) => {
     </Provider>,
   )
 }
+
 describe("Header component", () => {
   describe("should render if current user don't login", () => {
     beforeEach(() => {

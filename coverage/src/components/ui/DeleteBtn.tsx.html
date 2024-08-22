@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -88,7 +88,7 @@
 <a name='L23'></a><a href='#L23'>23</a>
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<a name='L26'></a><a href='#L26'>26</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -96,8 +96,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -111,33 +111,33 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" >import { Spinner } from "@nextui-org/react"</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Spinner } from "@nextui-org/react"
 import React from "react"
 &nbsp;
 type DeleteBtnProps = {
-  fn: () =&gt; void,
+  fn: () =&gt; void
   isLoading?: boolean
 }
 &nbsp;
-const DeleteBtn: React.FC&lt;DeleteBtnProps&gt; = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >({</span> fn, isLoading }) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >  return (</span>
+const DeleteBtn: React.FC&lt;DeleteBtnProps&gt; = ({ fn, isLoading }) =&gt; {
+  return (
     &lt;&gt;
       {isLoading ? (
-        &lt;Spinner className="absolute right-1 top-1 w-4 h-4 " /&gt;
+<span class="branch-0 cbranch-no" title="branch not covered" >        &lt;Spinner className="absolute right-1 top-1 w-4 h-4 " /&gt;</span>
       ) : (
         &lt;button
           onClick={fn}
           className="absolute right-1 top-1 w-4 h-4 bg-transparent border-none cursor-pointer before:absolute before:content-[''] before:block before:w-full before:h-[1px] before:bg-black before:transform before:rotate-45 after:absolute after:content-[''] after:block after:w-full after:h-[1px] after:bg-black after:transform after:-rotate-45"
+          data-testid='deleteBtn'
         /&gt;
       )}
     &lt;/&gt;
   )
 }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export default DeleteBtn</span>
-&nbsp;
+export default DeleteBtn
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -145,7 +145,7 @@ const DeleteBtn: React.FC&lt;DeleteBtnProps&gt; = <span class="cstat-no" title="
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-16T19:06:30.742Z
+                at 2024-08-22T10:16:00.594Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

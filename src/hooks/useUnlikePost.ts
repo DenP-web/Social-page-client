@@ -4,17 +4,18 @@ import { useUnlikeMutation } from "../app/services/likesApi"
 import { hasErrorField } from "../utils/hasErrorField"
 
 
+type nameOfTriggerFnType = 'getPostById' | 'getAllPost'
 
 const useUnlikePost = () => {
   const [error, setError] = useState('')
   const [triggerAllPosts] = useLazyGetAllPostsQuery()
   const [triggerGetPostById] = useLazyGetPostByIdQuery()
-  const [unlike, status] = useUnlikeMutation()
+  const [unlike] = useUnlikeMutation()
 
-  const fetchUnlikePost = async (postId: string, nameOfTriggerFn: string) => {
+  const fetchUnlikePost = async (postId: string, nameOfTriggerFn: nameOfTriggerFnType) => {
     try {
       await unlike({ postId }).unwrap()
-      await (nameOfTriggerFn === 'getById' ? triggerGetPostById({ id: postId }) : triggerAllPosts()).unwrap()
+      await (nameOfTriggerFn === 'getPostById' ? triggerGetPostById({ id: postId }) : triggerAllPosts()).unwrap()
     } catch (error) {
       if (hasErrorField(error)) {
         setError(error.data.message)

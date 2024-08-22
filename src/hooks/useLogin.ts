@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react"
-import { useLazyCurrentUserQuery, useLoginMutation } from "../app/services/userApi"
-import { hasErrorField } from "../utils/hasErrorField"
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
+import { useLoginMutation } from "../app/services/userApi"
+import { hasErrorField } from "../utils/hasErrorField"
 import { ROUTES } from "../constants"
 
-type LoginData = {
+interface LoginData {
   email: string
   password: string
 }
 
 const useLogin = () => {
   const [error, setError] = useState<string>("")
-  const [login, { isError, isLoading }] = useLoginMutation()
+  const [login, { isLoading }] = useLoginMutation()
   const navigate = useNavigate()
 
   async function fetchLogin(data: LoginData) {

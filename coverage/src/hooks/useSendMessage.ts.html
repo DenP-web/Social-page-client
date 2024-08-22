@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">35.71% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>5/14</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">35.71% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/14</span>
+                <span class='fraction'>5/14</span>
             </div>
         
             
@@ -96,23 +96,12 @@
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -120,19 +109,30 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useSelector } from "react-redux"
+<span class="cline-any cline-yes">6x</span></td><td class="text"><pre class="prettyprint lang-js">import { useSelector } from "react-redux"
 import { selectCurrent, selectUser } from "../app/selects/userSelects"
-<span class="cstat-no" title="statement not covered" >import { useGetAllConversationsQuery, useLazyGetAllMessagesQuery, useSendMessageMutation } from "../app/services/messagesApi"</span>
-<span class="cstat-no" title="statement not covered" >import { hasErrorField } from "../utils/hasErrorField"</span>
-<span class="cstat-no" title="statement not covered" >import toast from "react-hot-toast"</span>
+import { useGetAllConversationsQuery, useLazyGetAllMessagesQuery, useSendMessageMutation } from "../app/services/messagesApi"
+import { hasErrorField } from "../utils/hasErrorField"
+import toast from "react-hot-toast"
 &nbsp;
 &nbsp;
-const useSendMessage = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >() =</span>&gt; {</span>
+const useSendMessage = <span class="fstat-no" title="function not covered" >() =</span>&gt; {
   const [send, { isLoading, data }] = <span class="cstat-no" title="statement not covered" >useSendMessageMutation()</span>
   const [triggerGetAllMessage] = <span class="cstat-no" title="statement not covered" >useLazyGetAllMessagesQuery()</span>
 &nbsp;
@@ -156,14 +156,14 @@ const useSendMessage = <span class="cstat-no" title="statement not covered" ><sp
 &nbsp;
 }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >export default useSendMessage</span></pre></td></tr></table></pre>
+export default useSendMessage</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-08-16T19:06:30.742Z
+                at 2024-08-22T10:16:00.594Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

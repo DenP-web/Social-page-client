@@ -17,6 +17,7 @@ type RegisterProps = {
 
 const Register: React.FC<RegisterProps> = ({ changeTab }) => {
   const { fetchRegister, error, isLoading } = useRegister()
+  
   const { control, handleSubmit } = useForm<RegisterFormData>({
     mode: "onChange",
     reValidateMode: "onBlur",
@@ -28,7 +29,7 @@ const Register: React.FC<RegisterProps> = ({ changeTab }) => {
   })
 
   const onSubmit = (data: RegisterFormData) => {
-    fetchRegister({ data })
+    fetchRegister(data)
   }
 
   

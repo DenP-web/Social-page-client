@@ -3,7 +3,7 @@ import { useGetPostByIdQuery } from "../../app/services/postsApi"
 import { useParams } from "react-router-dom"
 import { Spinner } from "@nextui-org/react"
 import PostCard from "../../components/PostCard"
-import Textarea from "../../components/ui/TextArea"
+
 import AddNewComment from "../../components/AddNewComment"
 import CommentsList from "../../components/CommentsList"
 

@@ -1,4 +1,4 @@
-import useCreatePost from "./useCreataPost";
+import useCreatePost from "./useCreatePost";
 import useDeletePost from "./useDeletePost";
 import useLogin from "./useLogin";
 import useRegister from "./useRegister";

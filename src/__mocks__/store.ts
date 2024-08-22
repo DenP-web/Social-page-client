@@ -7,21 +7,13 @@ import { api } from '../app/services/api';
 
 const mockStore = (initialState: unknown) => {
   return configureStore({
-    reducer: {
-      [api.reducerPath]: api.reducer,
-      socket: socketSlice,
-      user: userSlice,
-      notification: notificationSlice,
-    },
-    preloadedState: initialState,
-    middleware: (getDefaultMiddleware) =>
+    reducer: (state = initialState, action) => state,
+    middleware: getDefaultMiddleware =>
       getDefaultMiddleware({
-        serializableCheck: {
-          ignoredActions: ['socket/setSocket'],
-          ignoredPaths: ['socket.socket'],
-        },
-      }).concat(api.middleware),
-  });
+        immutableCheck: false,
+        serializableCheck: false,
+      }),
+  })
 };
 
 export { mockStore, Provider };
