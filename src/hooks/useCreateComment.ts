@@ -2,7 +2,6 @@ import { useState } from "react"
 import { useLazyGetPostByIdQuery } from "../app/services/postsApi"
 import { useCreateCommentMutation } from "../app/services/commentsApi"
 import { hasErrorField } from "../utils/hasErrorField"
-import { UseFormReset } from "react-hook-form"
 
 const useCreateComment = () => {
   const [error, setError] = useState<string>('')
